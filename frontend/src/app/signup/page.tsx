@@ -131,28 +131,6 @@ export default function SignupPage() {
                 className="w-full bg-slate-900 border border-border pl-10 pr-4 py-2.5 rounded-lg text-sm text-text placeholder-muted focus:outline-none focus:border-indigo-500 transition"
               />
             </div>
-            {password.length > 0 && (
-              <div className="flex flex-col gap-1 mt-1">
-                <div className="flex justify-between items-center text-[10px]">
-                  <span className="text-muted">Password Strength:</span>
-                  <span className={
-                    password.length < 8 ? 'text-red-400 font-bold' :
-                    password.length >= 8 && (!/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^A-Za-z0-9]/.test(password)) ? 'text-amber-400 font-bold' :
-                    'text-emerald-400 font-bold'
-                  }>
-                    {password.length < 8 ? 'Too Short (Weak)' :
-                     !/[A-Z]/.test(password) || !/[0-9]/.test(password) || !/[^A-Za-z0-9]/.test(password) ? 'Moderate (Fair)' :
-                     'Strong (Excellent)'}
-                  </span>
-                </div>
-                <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden flex gap-0.5">
-                  <div className={`h-full flex-1 transition-all duration-300 ${password.length > 0 ? 'bg-red-500' : 'bg-transparent'}`} />
-                  <div className={`h-full flex-1 transition-all duration-300 ${password.length >= 8 ? 'bg-amber-500' : 'bg-transparent'}`} />
-                  <div className={`h-full flex-1 transition-all duration-300 ${password.length >= 8 && (/[A-Z]/.test(password) || /[0-9]/.test(password) || /[^A-Za-z0-9]/.test(password)) ? 'bg-yellow-400' : 'bg-transparent'}`} />
-                  <div className={`h-full flex-1 transition-all duration-300 ${password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password) ? 'bg-emerald-500' : 'bg-transparent'}`} />
-                </div>
-              </div>
-            )}
             {formErrors.password && (
               <span className="text-red-400 text-[10px]">{formErrors.password}</span>
             )}
