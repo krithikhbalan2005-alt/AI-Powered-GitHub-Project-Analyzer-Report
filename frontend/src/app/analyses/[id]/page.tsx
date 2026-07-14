@@ -41,7 +41,7 @@ export default function AnalysisDetailPage() {
   const [downloadingPdf, setDownloadingPdf] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'codebase' | 'readme' | 'deployment'>('overview');
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://ai-powered-git-hub-project-analyzer-fawn.vercel.app/api';
 
   const fetchAnalysis = async () => {
     try {

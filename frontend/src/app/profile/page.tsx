@@ -28,7 +28,7 @@ export default function ProfilePage() {
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://ai-powered-git-hub-project-analyzer-fawn.vercel.app/api';
 
   useEffect(() => {
     if (!authLoading && !currentUser) {

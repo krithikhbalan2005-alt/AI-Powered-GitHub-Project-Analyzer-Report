@@ -34,7 +34,7 @@ export default function HistoryPage() {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 10;
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://ai-powered-git-hub-project-analyzer-fawn.vercel.app/api';
 
   useEffect(() => {
     // If not authenticated and auth state resolved, redirect

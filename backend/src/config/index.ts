@@ -35,7 +35,7 @@ const adminUids = adminUidsString
 export const config: Config = {
   PORT: parseInt(process.env.PORT || '5000', 10),
   NODE_ENV: (process.env.NODE_ENV as Config['NODE_ENV']) || 'development',
-  FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:3000',
+  FRONTEND_URL: process.env.FRONTEND_URL || 'https://ai-powered-git-hub-project-analyzer.vercel.app',
   FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID || 'ai-powered-github-project',
   FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
   FIREBASE_PRIVATE_KEY: parsePrivateKeyValue(process.env.FIREBASE_PRIVATE_KEY),

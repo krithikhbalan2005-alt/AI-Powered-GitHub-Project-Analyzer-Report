@@ -16,8 +16,9 @@ app.use(helmet());
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5000',
+  'https://ai-powered-git-hub-project-analyzer.vercel.app',
   config.FRONTEND_URL,
-];
+].filter(Boolean);
 
 app.use(
   cors({
