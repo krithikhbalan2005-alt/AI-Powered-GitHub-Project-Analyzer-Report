@@ -102,11 +102,12 @@ export async function generateAnalysisPDF(input: PDFGenerationInput): Promise<{ 
       doc.fillColor(primaryColor).fontSize(14).font('Helvetica-Bold').text('Detected Stack Summary');
       doc.rect(50, 90, 495, 1).fill('#e2e8f0');
       
-      const languagesString = analysis.detectedStack.languages.join(', ') || 'None';
-      const frontendString = analysis.detectedStack.frontend.join(', ') || 'Generic / None';
-      const backendString = analysis.detectedStack.backend.join(', ') || 'Generic / None';
-      const dbString = analysis.detectedStack.database.join(', ') || 'Not Detected';
-      const deployString = analysis.detectedStack.deployment.join(', ') || 'Not Detected';
+      const stack = analysis.detectedStack || { languages: [], frontend: [], backend: [], database: [], deployment: [] };
+      const languagesString = (stack.languages || []).join(', ') || 'None';
+      const frontendString = (stack.frontend || []).join(', ') || 'Generic / None';
+      const backendString = (stack.backend || []).join(', ') || 'Generic / None';
+      const dbString = (stack.database || []).join(', ') || 'Not Detected';
+      const deployString = (stack.deployment || []).join(', ') || 'Not Detected';
 
       doc.y = 105;
       doc.fillColor(textColor).fontSize(9);
@@ -184,7 +185,8 @@ export async function generateAnalysisPDF(input: PDFGenerationInput): Promise<{ 
 
       doc.moveDown(0.5);
       doc.font('Helvetica-Bold').text('Deployment Steps:');
-      analysis.deployment.guideSteps.forEach((step) => {
+      const steps = analysis.deployment.guideSteps || [];
+      steps.forEach((step) => {
         doc.font('Helvetica').text(step, { width: 480, indent: 15 });
       });
 

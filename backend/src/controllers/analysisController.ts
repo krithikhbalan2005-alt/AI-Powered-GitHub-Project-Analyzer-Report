@@ -163,6 +163,7 @@ export async function createAnalysis(req: AuthenticatedRequest, res: Response) {
         environmentVariablesRequired: analysisResult.deployment.environmentVariablesRequired,
         recommendedPlatform: analysisResult.deployment.recommendedPlatform,
         recommendationReason: analysisResult.deployment.recommendationReason,
+        guideSteps: analysisResult.deployment.guideSteps,
       },
       summary: aiSuggestions.summary,
       resumePoint: aiSuggestions.resumePoint,
