@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
 import { loginSchema } from '../../validations/auth';
-import { Code, Mail, Lock, LogIn, Loader, RefreshCw } from 'lucide-react';
+import { Code, Mail, Lock, LogIn, Loader, RefreshCw, ShieldCheck } from 'lucide-react';
 
 export default function LoginPage() {
   const { login, resetPassword, currentUser } = useAuth();
@@ -230,6 +230,11 @@ export default function LoginPage() {
             </button>
           </form>
         )}
+
+        <div className="flex items-center justify-center gap-2 p-2.5 rounded-lg bg-slate-900/60 border border-emerald-500/10 text-[10px] text-emerald-400/90 font-medium select-none">
+          <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-500" />
+          <span>SSL End-to-End Encryption & PBKDF2 Password Hashing Active</span>
+        </div>
 
         <div className="text-center text-xs text-muted border-t border-border/50 pt-4">
           Don&apos;t have an account?{' '}
