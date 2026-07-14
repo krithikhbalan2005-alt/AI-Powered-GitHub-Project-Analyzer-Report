@@ -9,7 +9,7 @@ try {
         clientEmail: config.FIREBASE_CLIENT_EMAIL,
         privateKey: config.FIREBASE_PRIVATE_KEY,
       }),
-      storageBucket: `${config.FIREBASE_PROJECT_ID}.appspot.com`
+      storageBucket: `${config.FIREBASE_PROJECT_ID}.firebasestorage.app`
     });
     console.log('✔ Firebase Admin SDK successfully initialized');
   } else {
@@ -17,7 +17,7 @@ try {
     // or initialize with project ID for local emulator usage.
     admin.initializeApp({
       projectId: config.FIREBASE_PROJECT_ID,
-      storageBucket: `${config.FIREBASE_PROJECT_ID}.appspot.com`
+      storageBucket: `${config.FIREBASE_PROJECT_ID}.firebasestorage.app`
     });
     console.warn('⚠️ Firebase Admin SDK initialized with fallback default credential (env credentials missing)');
   }
