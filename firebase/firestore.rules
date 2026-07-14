@@ -1,0 +1,62 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && (
+        getUserData().role == 'admin'
+      );
+    }
+    
+    function isMentor() {
+      return isAuthenticated() && (
+        getUserData().role == 'mentor' || getUserData().role == 'admin'
+      );
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      // Users can register their own profile but cannot set themselves as admin/mentor
+      allow create: if isOwner(userId) && 
+        request.resource.data.role == 'user';
+      // Users can update their name/photo but cannot change their role
+      allow update: if isOwner(userId) && 
+        request.resource.data.role == resource.data.role;
+      // Admins have full access
+      allow write: if isAdmin();
+    }
+
+    // Analyses collection
+    match /analyses/{analysisId} {
+      // Users can only read their own analyses. Mentors/Admins can read all.
+      allow read: if isAuthenticated() && (
+        resource.data.userId == request.auth.uid || isMentor()
+      );
+      // All creation and updates of analyses are handled through the secure backend Admin SDK.
+      allow write: if isAdmin();
+    }
+
+    // Mentor Comments collection
+    match /mentorComments/{commentId} {
+      allow read: if isAuthenticated() && (
+        resource.data.userId == request.auth.uid || isMentor()
+      );
+      // Only mentors or admins can add/edit comments
+      allow write: if isMentor();
+    }
+  }
+}

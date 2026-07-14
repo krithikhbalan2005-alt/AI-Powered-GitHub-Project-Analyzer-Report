@@ -1,0 +1,318 @@
+{
+  "info": {
+    "_postman_id": "b3e34b1a-8c7e-4b4e-9d22-d04e5d6d8c0b",
+    "name": "GitAnalyzer API",
+    "description": "Postman Collection for AI-Powered GitHub Project Analyzer & Deployment Readiness Checker",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Public Endpoints",
+      "item": [
+        {
+          "name": "Engine Healthcheck",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "health"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Developer Profile",
+      "item": [
+        {
+          "name": "Get Profile details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Profile details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Senior Dev\",\n  \"photoURL\": \"https://example.com/avatar.png\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "profile"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Repository Analyses",
+      "item": [
+        {
+          "name": "Submit Audit Scan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"repositoryUrl\": \"https://github.com/facebook/react\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/analyses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Analyses History list",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/analyses?limit=10&page=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyses"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "status",
+                  "value": "completed",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Analysis details by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/analyses/:analysisId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyses", ":analysisId"],
+              "variable": [
+                {
+                  "key": "analysisId",
+                  "value": "ANALYSIS_DOCUMENT_UUID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Analysis log",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/analyses/:analysisId",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyses", ":analysisId"],
+              "variable": [
+                {
+                  "key": "analysisId",
+                  "value": "ANALYSIS_DOCUMENT_UUID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Trigger PDF generation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/analyses/:analysisId/report",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyses", ":analysisId", "report"],
+              "variable": [
+                {
+                  "key": "analysisId",
+                  "value": "ANALYSIS_DOCUMENT_UUID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get PDF Signed download URL",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/analyses/:analysisId/report",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "analyses", ":analysisId", "report"],
+              "variable": [
+                {
+                  "key": "analysisId",
+                  "value": "ANALYSIS_DOCUMENT_UUID"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin Panel",
+      "item": [
+        {
+          "name": "Get platform aggregates",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/analytics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "analytics"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get system analyses logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{idToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/admin/analyses",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "admin", "analyses"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "default"
+    },
+    {
+      "key": "idToken",
+      "value": "PASTE_YOUR_FIREBASE_ID_TOKEN_HERE",
+      "type": "default"
+    }
+  ]
+}

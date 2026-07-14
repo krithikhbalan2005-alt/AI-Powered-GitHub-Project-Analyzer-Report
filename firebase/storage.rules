@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Reports matching reports/{userId}/{analysisId}/{fileName}
+    match /reports/{userId}/{analysisId}/{fileName} {
+      // Only the owner of the report can read the PDF
+      allow read: if isOwner(userId);
+      // Only the backend Admin SDK can write/delete reports directly, or read them
+      allow write: if false;
+    }
+  }
+}
